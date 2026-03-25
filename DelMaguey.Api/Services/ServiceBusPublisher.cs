@@ -1,5 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 using System.Text.Json;
+using DelMaguey.Api.Models;
 
 namespace DelMaguey.Api.Services
 {
@@ -20,7 +21,7 @@ namespace DelMaguey.Api.Services
                 throw new ArgumentNullException(nameof(cs), "ServiceBus connection string cannot be null or empty.");
         }
 
-        public async Task SendTransactionAsync(object transaction) 
+        public async Task SendTransactionAsync(Transaction transaction) 
         {
             var sender = _client.CreateSender(_queueName);
 

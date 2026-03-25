@@ -32,21 +32,29 @@ namespace DelMaguey.Api.Controllers
 
         
         [HttpPost("transfer")]
-        public async Task<IActionResult> Transfer([FromBody] object request)
+        public async Task<IActionResult> Transfer([FromBody] Models.Transaction request)
         {
-            //if (request.Amount <= 0)
-            //{
-            //    return BadRequest("Invalid Amount");
-            //}
-
-            var transaction = new
+            if (request.Amt <= 0)
             {
-                TransactionId = Guid.NewGuid().ToString(),
-                Type = "Transfer",
-                //FromAccount = request.FromAccount,
-                //ToAccount = request.ToAccount,
-                //Amount = request.Amount,
-                TimeStamp = DateTime.UtcNow,
+                return BadRequest("Invalid Amount");
+            }
+
+            Models.Transaction? transaction = new ()
+            {
+                TransId = request.TransId,
+                Amt = request.Amt,
+                TransDateTransTime = DateTime.UtcNow,
+                Job = request.Job,
+                City = request.City,
+                Last = request.Last,
+                Email = request.Email,
+                First = request.First,
+                State = request.State,
+                Gender = request.Gender,
+                Street = request.Street,
+                Category = request.Category,
+                Merchant = request.Merchant,
+                TransNum = request.TransNum
             };
 
 
@@ -63,7 +71,7 @@ namespace DelMaguey.Api.Controllers
 
             return Accepted(new
             {
-                transaction.TransactionId,
+                transaction.TransId,
                 Status = "Processing"
             });
 
