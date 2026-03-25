@@ -29,6 +29,7 @@ namespace DelMaguey.Api.Services
                 JsonSerializer.Serialize(transaction)
                 );
 
+
             await sender.SendMessageAsync(message);
         }
 
