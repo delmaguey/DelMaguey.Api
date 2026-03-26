@@ -1,6 +1,5 @@
 using DelMaguey.Api.Models;
 using DelMaguey.Api.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,9 +12,6 @@ builder.Configuration.GetConnectionString("FinanceDB");
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<ServiceBusPublisher>();
-
-// Configure the DbContext with the connection string
-  builder.Services.AddDbContext<FinanceDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("FinanceConnection")));
 
 
 //Only for Minimal APIs

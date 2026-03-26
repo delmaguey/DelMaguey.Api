@@ -5,7 +5,7 @@ namespace DelMaguey.Api.Models;
 
 public partial class Transaction
 {
-    public int TransId { get; set; }
+    public int Id { get; set; }
 
     public DateTime TransDateTransTime { get; set; }
 

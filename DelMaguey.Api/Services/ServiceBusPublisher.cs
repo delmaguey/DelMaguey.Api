@@ -6,7 +6,6 @@ namespace DelMaguey.Api.Services
 {
     public class ServiceBusPublisher
     {
-
         private readonly ServiceBusClient _client;
         private readonly string _queueName = "transactions";
         private readonly string topic = "orders-topic";

@@ -1,9 +1,7 @@
-﻿//using DelMaguey.Api.Models;
-using DelMaguey.Api.Models;
+﻿using DelMaguey.Api.Models;
 using DelMaguey.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Transactions;
 
 namespace DelMaguey.Api.Controllers
@@ -13,21 +11,10 @@ namespace DelMaguey.Api.Controllers
     public class PaymentsController : ControllerBase
     {
         private readonly ServiceBusPublisher _publisher;
-        private readonly FinanceDbContext _db;
 
-        public PaymentsController(ServiceBusPublisher publisher, FinanceDbContext db)
+        public PaymentsController(ServiceBusPublisher publisher)
         {
-            _db= db;
             _publisher = publisher;
-        }
-
-
-        [HttpGet("getTransaction/{id}")]
-        public async Task<Models.Transaction?> Get(int id)
-        {
-            // Use FirstOrDefaultAsync to retrieve the transaction by id asynchronously
-            var tr = await _db.Transactions.FirstOrDefaultAsync(x => x.TransId == id);
-            return tr;
         }
 
         
@@ -41,7 +28,7 @@ namespace DelMaguey.Api.Controllers
 
             Models.Transaction? transaction = new ()
             {
-                TransId = request.TransId,
+                Id = request.Id,
                 Amt = request.Amt,
                 TransDateTransTime = DateTime.UtcNow,
                 Job = request.Job,
@@ -71,7 +58,7 @@ namespace DelMaguey.Api.Controllers
 
             return Accepted(new
             {
-                transaction.TransId,
+                transaction.Id,
                 Status = "Processing"
             });
 
